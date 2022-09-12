@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatbotUserController;
+use App\Http\Controllers\PokemonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('/v1')->group(function () {
+    Route::post('/register/chat-bot-user', [ChatbotUserController::class, 'registerUser']);
+    Route::get('/pokemon/{name}', [PokemonController::class, 'getPokemon']);
+});
+
+Route::fallback(function () {
+    return response()->json([
+        'status'  => false,
+        'message' => 'Request Not Found!',
+        'data'    => null
+    ], 404);
 });
