@@ -12,7 +12,7 @@ class PokemonController extends Controller
     public function getPokemon($name)
     {
         try {
-            $response = Http::get('https://pokeapi.co/api/v2/pokemon/' . $name);
+            $response = Http::get('https://pokeapi.co/api/v2/pokemon/' . lcfirst($name));
 
             if (!$response->ok()) {
                 return response()->json([
