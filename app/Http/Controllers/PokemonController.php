@@ -19,15 +19,15 @@ class PokemonController extends Controller
                     'status'  => false,
                     'message' => 'Pokemon info is not found',
                     'data'    => [
-                        'info'    => "Sorry, we don't have any information about pokemon " . ucfirst($name),
+                        'info'    => "Sorry, we don't have any information about pokemon " . ucfirst($name) . ".",
                         'img'     => null,
                     ]
-                ], 400);
+                ], 200);
             }
 
             $data = $response->json();
             $pokemon_name = ucfirst($data['name']);
-            $info = "{$pokemon_name} is an {$data['types'][0]['type']['name']} with {$data['weight']} weight and {$data['height']} height, here's a picture of {$pokemon_name}";
+            $info = "{$pokemon_name} is an {$data['types'][0]['type']['name']} with {$data['weight']} weight and {$data['height']} height, here's a picture of {$pokemon_name}.";
             $img = $data['sprites']['other']['official-artwork']['front_default'];
 
             return response()->json([
