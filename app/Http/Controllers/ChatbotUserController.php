@@ -28,7 +28,7 @@ class ChatbotUserController extends Controller
                 'status'  => false,
                 'message' => 'Invalid request!',
                 'data'    => $validator->getMessageBag()
-            ], 400);
+            ], 200);
         }
 
         DB::beginTransaction();
