@@ -59,4 +59,56 @@ class ChatbotUserController extends Controller
             }
         }
     }
+
+    /**
+     * Get user with givein date.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getUser(Request $request){
+        $validator = Validator::make($request->all(), [
+            'date'  => 'date|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Invalid request!',
+                'data'    => $validator->getMessageBag()
+            ], 200);
+        }
+
+        try {
+            $users_chatbot = ChatbotUser::select('*');
+
+            if ($request->has('date')){
+                $users_chatbot = $users_chatbot->whereDate('created_at', $request->date);
+            }
+
+            $users_chatbot = $users_chatbot->latest()->get();
+
+            return response()->json([
+                'status'  => true,
+                'message' => 'User data has been saved',
+                'data'    => [
+                    'count' => count($users_chatbot),
+                    'users' => $users_chatbot
+                ]
+            ], 200);
+        } catch (Exception $e) {
+            if (App::environment(['local', 'staging', 'testing'])) {
+                return response()->json([
+                    "error" => $e->getMessage(),
+                    "data" => null
+                ], 500);
+            } else {
+                Log::error($e->getMessage(), $request->all());
+                return response()->json([
+                    "error" => "Something wrong",
+                    "data" => null
+                ], 500);
+            }
+        }
+    }
 }

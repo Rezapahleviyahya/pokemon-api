@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('/v1')->group(function () {
     Route::post('/register/chat-bot-user', [ChatbotUserController::class, 'registerUser']);
+    Route::get('/users-chatbot', [ChatbotUserController::class, 'getUser']);
     Route::get('/pokemon/{name}', [PokemonController::class, 'getPokemon']);
 });
 
