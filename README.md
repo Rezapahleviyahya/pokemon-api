@@ -35,6 +35,6 @@ docker run --rm \
 ```
 - Copy <b>example.env</b> and change it into <b>.env</b>.
 - Edit variable <code>DB_CONNECTION</code>, <code>DB_HOST</code>, <code>DB_PORT</code>, <code>DB_DATABASE</code>, <code>DB_USERNAME</code>, <code>DB_PASSWORD</code> in <b>.env</b> file.
-- Run <code>vendor/bin/sail up</code>.
-- Run <code>vendor/bin/sail artisan key:generate</code>.
-- Run <code>vendor/bin/sail artisan migrate</code>.
+- Run <code>./vendor/bin/sail up</code>.
+- Run <code>./vendor/bin/sail artisan key:generate</code>.
+- Run <code>./vendor/bin/sail artisan migrate</code>.
